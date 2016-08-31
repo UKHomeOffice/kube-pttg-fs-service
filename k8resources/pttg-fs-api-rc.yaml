@@ -92,6 +92,9 @@ spec:
             containerPort: 80
       - name: pttg-fs-api
         image: quay.io/ukhomeofficedigital/pttg-fs-api:${ pt-income-version }
+        env:
+          - name: BARCLAYS_STUB_SERVICE
+            value: "http://pttg-fs-stub.pt-i-dev.svc.cluster.local"
         resources:
           limits:
             cpu: 200m
