@@ -2,7 +2,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: pttg-fs-api-testing
+  name: pttg-fs-api
   labels:
     version: {{.VERSION}}
 spec:
