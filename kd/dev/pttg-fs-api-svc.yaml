@@ -1,0 +1,16 @@
+---
+ipiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: pttg-fs-api-testing
+  name: pttg-fs-api
+spec:
+  ports:
+  - name: http
+    port: 80
+  - name: https
+    port: 443
+    targetPort: https
+  selector:
+    name: pttg-fs-api
