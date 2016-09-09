@@ -93,6 +93,8 @@ spec:
       - name: pttg-fs-api
         image: quay.io/ukhomeofficedigital/pttg-fs-api:{{.VERSION}}
         env:
+          - name: JAVA_OPTS
+            value: "-Xms512m -Xmx768m"
           - name: BARCLAYS_STUB_SERVICE
             value: "http://pttg-fs-stub.pt-i-dev.svc.cluster.local"
           - name: SERVER_PORT
