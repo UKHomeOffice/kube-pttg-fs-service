@@ -82,7 +82,7 @@ spec:
           - --listen=127.0.0.1:9000
           - --log-requests=true
           - --json-logging=true
-          - --upstream-url=http://127.0.0.1:8000
+          - --upstream-url=http://127.0.0.1:8080
           - --no-redirects=false
           - --redirection-url=https://pttg-fs-ui-{{.ENVIRONMENT}}.notprod.homeoffice.gov.uk
           - --cors-origins='*'
