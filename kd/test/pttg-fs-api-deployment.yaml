@@ -131,16 +131,16 @@ spec:
             initialDelaySeconds: 240
             periodSeconds: 20
             timeoutSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: http
-              httpHeaders:
-                - name: X-probe
-                  value: kubelet
-            initialDelaySeconds: 240
-            periodSeconds: 20
-            timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+            httpHeaders:
+              - name: X-probe
+                value: kubelet
+          initialDelaySeconds: 240
+          periodSeconds: 20
+          timeoutSeconds: 10
         imagePullPolicy: Always
       volumes:
       - name: secrets
