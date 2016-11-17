@@ -122,15 +122,15 @@ spec:
           - name: http
             containerPort: 8080
         livenessProbe:
-            httpGet:
-              path: /ping
-              port: http
-              httpHeaders:
-                - name: X-probe
-                  value: kubelet
-            initialDelaySeconds: 120
-            periodSeconds: 20
-            timeoutSeconds: 10
+          httpGet:
+            path: /ping
+            port: http
+            httpHeaders:
+              - name: X-probe
+                value: kubelet
+          initialDelaySeconds: 180
+          periodSeconds: 20
+          timeoutSeconds: 10
         readinessProbe:
           httpGet:
             path: /healthz
@@ -138,7 +138,7 @@ spec:
             httpHeaders:
               - name: X-probe
                 value: kubelet
-          initialDelaySeconds: 120
+          initialDelaySeconds: 180
           periodSeconds: 20
           timeoutSeconds: 10
         imagePullPolicy: Always
