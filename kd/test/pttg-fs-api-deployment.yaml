@@ -111,6 +111,8 @@ spec:
             value: "http://pttg-fs-stub.pt-i-{{.ENVIRONMENT}}.svc.cluster.local"
           - name: SERVER_PORT
             value: '8080'
+          - name: AUDITING_MONGODB_HOST
+            value: 'pttg-mongodb.pt-i-{{.ENVIRONMENT}}.svc.cluster.local'
         resources:
           limits:
             cpu: 200m
