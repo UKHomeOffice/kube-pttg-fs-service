@@ -78,7 +78,7 @@ spec:
         args:
           - --config=/etc/secrets/keycloak-api-secret.yaml
           - --discovery-url=https://sso.digital.homeoffice.gov.uk/auth/realms/pttg-dev
-          - --client-id=pttg-fs-{{.ENVIRONMENT}}
+          - --client-id=pttg-fs-preprod
           - --listen=127.0.0.1:9000
           - --log-requests=true
           - --json-logging=true
