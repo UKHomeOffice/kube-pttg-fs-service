@@ -84,7 +84,7 @@ spec:
           - --json-logging=true
           - --upstream-url=http://127.0.0.1:8080
           - --no-redirects=false
-          - --redirection-url=https://pttg-fs-ui-{{.ENVIRONMENT}}.prod.homeoffice.gov.uk
+          - --redirection-url=https://pttg-fs-ui-{{.ENVIRONMENT}}.pttg.homeoffice.gov.uk
           - --cors-origins='*'
           - --resource=uri=/healthz|white-listed=true
           - --resource=uri=/|methods=GET|roles=pttg-user
@@ -111,6 +111,16 @@ spec:
             value: "http://pttg-fs-stub.pt-i-{{.ENVIRONMENT}}.svc.cluster.local"
           - name: SERVER_PORT
             value: '8080'
+          - name: AUDITING_MONGODB_HOST
+            value: 'pttg-mongodb.pt-i-{{.ENVIRONMENT}}.svc.cluster.local'
+          - name: AUDITING_DEPLOYMENT_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: AUDITING_DEPLOYMENT_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
         resources:
           limits:
             cpu: 200m
