@@ -9,4 +9,5 @@ cd kd
 kd --debug \
    --insecure-skip-tls-verify  --timeout 5m0s \
    --file ${ENVIRONMENT}/pttg-fs-api-deployment.yaml \
-   --file ${ENVIRONMENT}/pttg-fs-api-svc.yaml
+   --file ${ENVIRONMENT}/pttg-fs-api-svc.yaml \
+   --retries 10
