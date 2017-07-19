@@ -6,4 +6,3 @@ This is the kubernetes deployment files for Proving Things Financial Status API
 
 run deployment
 
-	./scripts/deploy_kd

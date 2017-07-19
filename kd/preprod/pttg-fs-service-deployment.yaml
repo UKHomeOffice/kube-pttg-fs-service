@@ -2,18 +2,18 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: pttg-fs-api
+  name: pttg-fs-service
   labels:
     version: {{.VERSION}}
 spec:
   replicas: 2
   selector:
     matchLabels:
-      name: pttg-fs-api
+      name: pttg-fs-service
   template:
     metadata:
       labels:
-        name: pttg-fs-api
+        name: pttg-fs-service
         version: {{.VERSION}}
     spec:
       containers:
@@ -30,7 +30,7 @@ spec:
         args:
           - -output=/etc/nginx/secrets
           - -tls-skip-verify=true
-          - -cn=pki:services/${NAMESPACE}/pki/issue/default:common_name=pttg-fs-api.${NAMESPACE}.svc.cluster.local,file=/etc/nginx/secrets/pttg-fs-api,fmt=bundle
+          - -cn=pki:services/${NAMESPACE}/pki/issue/default:common_name=pttg-fs-service.${NAMESPACE}.svc.cluster.local,file=/etc/nginx/secrets/pttg-fs-service,fmt=bundle
         env:
           - name: VAULT_ADDR
             value: "https://vault.vault.svc.cluster.local:8200"
@@ -61,9 +61,9 @@ spec:
           - name: HTTPS_REDIRECT
             value: 'FALSE'
           - name: SERVER_CERT
-            value: /etc/nginx/secrets/pttg-fs-api-bundle.pem
+            value: /etc/nginx/secrets/pttg-fs-service-bundle.pem
           - name: SERVER_KEY
-            value: /etc/nginx/secrets/pttg-fs-api-key.pem
+            value: /etc/nginx/secrets/pttg-fs-service-key.pem
         volumeMounts:
           - name: secrets
             mountPath: /etc/nginx/secrets
@@ -102,8 +102,8 @@ spec:
           limits:
             memory: 256Mi
             cpu: 100m
-      - name: pttg-fs-api
-        image: quay.io/ukhomeofficedigital/pttg-fs-api:{{.VERSION}}
+      - name: pttg-fs-service
+        image: quay.io/ukhomeofficedigital/pttg-fs-service:{{.VERSION}}
         env:
           - name: JAVA_OPTS
             value: "-Xms512m -Xmx768m"
