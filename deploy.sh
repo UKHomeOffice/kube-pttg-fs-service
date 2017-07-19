@@ -5,7 +5,9 @@ export APP=${APP:-pttg-fs-service}
 export KUBE_SERVER=${KUBE_SERVER_DEV}
 
 cd kd
-kd --insecure-skip-tls-verify \
-   --file ${APP}-deployment.yaml \
-   --file ${APP}-svc.yaml \
-   --retries 50
+echo "in deploy.sh"
+
+#kd --insecure-skip-tls-verify \
+#   --file ${APP}-deployment.yaml \
+#   --file ${APP}-svc.yaml \
+#   --retries 50
