@@ -6,10 +6,8 @@ export KUBE_SERVER=${KUBE_SERVER_DEV}
 export KUBE_TOKEN=${KUBE_TOKEN}
 
 cd kd
-echo "in deploy.sh, with KUBE_TOKEN=" $KUBE_TOKEN
-env
 
-#kd --insecure-skip-tls-verify \
-#   --file ${APP}-deployment.yaml \
-#   --file ${APP}-svc.yaml \
-#   --retries 50
+kd --insecure-skip-tls-verify \
+   --file ${APP}-deployment.yaml \
+   --file ${APP}-svc.yaml \
+   --retries 50
