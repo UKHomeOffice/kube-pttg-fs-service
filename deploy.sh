@@ -9,5 +9,4 @@ cd kd
 
 kd --insecure-skip-tls-verify \
    --file ${APP}-deployment.yaml \
-   --file ${APP}-svc.yaml \
-   --retries 50
+   --file ${APP}-svc.yaml
