@@ -122,7 +122,7 @@ spec:
           - name: JAVA_OPTS
             value: "-Xms512m -Xmx768m"
           - name: BARCLAYS_SERVICE_URL
-            value: "http://pttg-fs-barclays.pt-i-{{.ENVIRONMENT}}.svc.cluster.local"
+            value: "http://pttg-fs-barclays"
           - name: SERVER_PORT
             value: '8080'
           - name: AUDITING_MONGODB_HOST
