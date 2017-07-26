@@ -120,11 +120,11 @@ spec:
         image: quay.io/ukhomeofficedigital/pttg-fs-service:{{.VERSION}}
         env:
           - name: JAVA_OPTS
-            value: "-Xms150m -Xmx250m"
+            value: '-Xms150m -Xmx250m'
           - name: SERVER_PORT
             value: '8080'
           - name: BARCLAYS_SERVICE_URL
-            value: "http://pttg-fs-barclays"
+            value: 'http://pttg-fs-barclays'
           - name: AUDITING_MONGODB_HOST
             value: 'pttg-mongodb.pt-i-{{.ENVIRONMENT}}.svc.cluster.local'
           - name: AUDITING_DEPLOYMENT_NAME
