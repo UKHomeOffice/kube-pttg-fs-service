@@ -8,6 +8,7 @@ export KUBE_TOKEN=${KUBE_TOKEN}
 cd kd
 
 kd --insecure-skip-tls-verify \
-   --file ${APP}-deployment.yaml \
-   --file ${APP}-svc.yaml \
-   --retries 50
+   --timeout 5m0s \
+   --retries 20 \
+   --file service.yaml \
+   --file deployment.yaml
