@@ -135,6 +135,9 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
+        volumeMounts:
+          - mountPath: /etc/nginx/secrets
+            name: secrets
         resources:
           limits:
             cpu: 400m
