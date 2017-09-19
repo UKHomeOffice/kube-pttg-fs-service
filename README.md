@@ -1,4 +1,4 @@
-## Proving Things - Income API -  Kubernetes Resources
+## Proving Things - Financial Status API -  Kubernetes Resources
 
 ### Kubernetes Deployment
 
