@@ -7,10 +7,6 @@ metadata:
   name: pttg-fs-service
 spec:
   ports:
-  - name: http
-    port: 80
-  - name: api
-    port: 8080
   - name: https
     port: 443
     targetPort: https

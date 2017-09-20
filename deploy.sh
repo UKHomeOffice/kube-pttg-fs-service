@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
-export KUBE_NAMESPACE=${KUBE_NAMESPACE:-${DRONE_DEPLOY_TO}}
-export ENVIRONMENT=${ENVIRONMENT:-dev}
-export APP=${APP:-pttg-fs-service}
-export KUBE_SERVER=${KUBE_SERVER_DEV}
-export KUBE_TOKEN=${KUBE_TOKEN}
+
+if [ $ENVIRONMENT == "prod" ]
+then
+    export KUBE_TOKEN=${PROD_KUBE_TOKEN}
+fi
 
 cd kd
-
 kd --insecure-skip-tls-verify \
-   --file ${APP}-deployment.yaml \
-   --file ${APP}-svc.yaml \
-   --retries 50
+   --file deployment.yaml \
+   --file service.yaml \
+   --retries 10
