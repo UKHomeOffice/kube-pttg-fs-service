@@ -10,5 +10,5 @@ fi
 
 cd kd
 kd --insecure-skip-tls-verify \
-   --f deployment.yaml \
-   --f service.yaml
+   -f deployment.yaml \
+   -f service.yaml
