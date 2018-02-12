@@ -9,5 +9,6 @@ then
 fi
 
 cd kd
-kd -f deployment.yaml \
+kd --insecure-skip-tls-verify \
+   -f deployment.yaml \
    -f service.yaml
