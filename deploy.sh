@@ -12,6 +12,5 @@ fi
 echo "KUBE_TOKEN=${KUBE_TOKEN}"
 
 cd kd
-kd --insecure-skip-tls-verify \
-   -f deployment.yaml \
+kd -f deployment.yaml \
    -f service.yaml
