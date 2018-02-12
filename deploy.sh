@@ -8,9 +8,6 @@ then
     export KUBE_TOKEN=${PROD_KUBE_TOKEN}
 fi
 
-
-echo "KUBE_TOKEN=${KUBE_TOKEN}"
-
 cd kd
 kd -f deployment.yaml \
    -f service.yaml
