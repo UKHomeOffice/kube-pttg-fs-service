@@ -84,7 +84,7 @@ spec:
           runAsNonRoot: true
         env:
           - name: JAVA_OPTS
-            value: '-Xms150m -Xmx250m -Djavax.net.ssl.trustStore=/data/truststore.jks'
+            value: '-Xms150m -Xmx250m'
           - name: SERVER_PORT
             value: '8080'
           - name: BARCLAYS_SERVICE_URL
