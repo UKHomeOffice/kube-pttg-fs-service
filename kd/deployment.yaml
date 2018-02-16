@@ -1,5 +1,5 @@
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: pttg-fs-service
@@ -23,6 +23,38 @@ spec:
     spec:
       imagePullSecrets:
       - name: registrykey
+      initContainers:
+      - name: get-ca-certs
+        image: quay.io/ukhomeofficedigital/cfssl-sidekick:v0.0.2
+        securityContext:
+          runAsNonRoot: true
+        args:
+          - --certs=/certs
+          - --domain=pttg-fs-service.${KUBE_NAMESPACE}.svc.cluster.local
+          - --onetime=true
+        env:
+          - name: KUBE_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+        volumeMounts:
+          - name: certs
+            mountPath: /certs
+          - name: bundle
+            mountPath: /etc/ssl/certs
+            readOnly: true
+      - name: create-truststore
+        image: quay.io/ukhomeofficedigital/pttg-docker-openjdk8:latest
+        securityContext:
+          runAsNonRoot: true
+        volumeMounts:
+          - name: store
+            mountPath: /store
+          - name: bundle
+            mountPath: /etc/ssl/certs
+            readOnly: true
+        command: ["/bin/sh"]
+        args: ["-c", "keytool -import -alias servercert -file /etc/ssl/certs/ca-bundle.crt -keystore /store/truststore.jks -noprompt -storepass changeit"]
       containers:
       - name: certs
         image: quay.io/ukhomeofficedigital/cfssl-sidekick:v0.0.2
@@ -84,13 +116,13 @@ spec:
           runAsNonRoot: true
         env:
           - name: JAVA_OPTS
-            value: '-Xms150m -Xmx250m'
+            value: '-Xms150m -Xmx250m -Djavax.net.ssl.trustStore=/store/truststore.jks'
           - name: SERVER_PORT
             value: '8080'
           - name: BARCLAYS_SERVICE_URL
             value: "https://pttg-fs-barclays.pttg-fs-{{.ENVIRONMENT}}.svc.cluster.local"
           - name: JDK_TRUST_FILE
-            value: '/data/truststore.jks'
+            value: '/store/truststore.jks'
           - name: AUDITING_MONGODB_HOST
             value: 'pttg-mongodb.pttg-fs-{{.ENVIRONMENT}}.svc.cluster.local'
           - name: AUDITING_DEPLOYMENT_NAME
@@ -132,13 +164,16 @@ spec:
           periodSeconds: 20
           timeoutSeconds: 10
         volumeMounts:
-          - mountPath: /data
-            name: bundle
+          - name: store
+            mountPath: /store
             readOnly: true
       volumes:
+        - name: store
+          emptyDir:
+            medium: "Memory"
         - name: certs
           emptyDir:
             medium: "Memory"
         - name: bundle
-          emptyDir:
-            medium: "Memory"
+          configMap:
+            name: bundle
