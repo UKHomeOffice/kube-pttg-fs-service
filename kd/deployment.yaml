@@ -28,6 +28,10 @@ spec:
         image: quay.io/ukhomeofficedigital/cfssl-sidekick:v0.0.2
         securityContext:
           runAsNonRoot: true
+          capabilities:
+            drop:
+             - SETUID
+             - SETGID
         args:
           - --certs=/certs
           - --domain=pttg-fs-service.${KUBE_NAMESPACE}.svc.cluster.local
@@ -47,6 +51,10 @@ spec:
         image: quay.io/ukhomeofficedigital/pttg-docker-openjdk8:latest
         securityContext:
           runAsNonRoot: true
+          capabilities:
+            drop:
+             - SETUID
+             - SETGID
         volumeMounts:
           - name: store
             mountPath: /store
@@ -60,10 +68,15 @@ spec:
         image: quay.io/ukhomeofficedigital/cfssl-sidekick:v0.0.2
         securityContext:
           runAsNonRoot: true
+          capabilities:
+            drop:
+             - SETUID
+             - SETGID
         args:
           - --certs=/certs
           - --domain=pttg-fs-service.${KUBE_NAMESPACE}.svc.cluster.local
-          - --expiry=8760h
+          - --expiry=1m
+          - --command=/usr/bin/curl -k https://localhost:10443/reload
         env:
           - name: KUBE_NAMESPACE
             valueFrom:
@@ -125,6 +138,10 @@ spec:
         imagePullPolicy: Always
         securityContext:
           runAsNonRoot: true
+          capabilities:
+            drop:
+             - SETUID
+             - SETGID
         env:
           - name: JAVA_OPTS
             value: '-Xms150m -Xmx250m -Djavax.net.ssl.trustStore=/store/truststore.jks'
