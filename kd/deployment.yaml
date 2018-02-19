@@ -75,8 +75,8 @@ spec:
         args:
           - --certs=/certs
           - --domain=pttg-fs-service.${KUBE_NAMESPACE}.svc.cluster.local
-          - --expiry=0.016h
-          - --command=/usr/bin/curl -k https://localhost:10443/reload
+          - --expiry=1h
+          - --command=echo "command to exec is /usr/bin/curl -k https://localhost:10443/reload"
         env:
           - name: KUBE_NAMESPACE
             valueFrom:
