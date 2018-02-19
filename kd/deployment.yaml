@@ -75,7 +75,7 @@ spec:
         args:
           - --certs=/certs
           - --domain=pttg-fs-service.${KUBE_NAMESPACE}.svc.cluster.local
-          - --expiry=1m
+          - --expiry=0.016h
           - --command=/usr/bin/curl -k https://localhost:10443/reload
         env:
           - name: KUBE_NAMESPACE
@@ -120,7 +120,7 @@ spec:
           - name: SERVER_KEY
             value: /certs/tls-key.pem
           - name: ADD_NGINX_SERVER_CFG
-            value: 'gzip off; location = /reload { allow 127.0.0.1; deny all; content_by_lua_block { os.execute("nohup /usr/local/openresty/nginx/sbin/nginx -s reload >/dev/null &") } }'
+            value: 'gzip off; location = /reload { allow 127.0.0.1; deny all; content_by_lua_block { os.execute("/usr/local/openresty/nginx/sbin/nginx -s reload;") } }'
           - name: BASIC_AUTH
             value: /etc/nginx/service-secrets/.htpasswd_1
         volumeMounts:
