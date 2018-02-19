@@ -76,10 +76,14 @@ spec:
             mountPath: /etc/ssl/certs
             readOnly: true
       - name: proxy
-        image: quay.io/ukhomeofficedigital/pttg-nginx-proxy:v3.1.3a
+        image: quay.io/ukhomeofficedigital/nginx-proxy:v3.2.6
         imagePullPolicy: Always
         securityContext:
           runAsNonRoot: true
+          capabilities:
+            drop:
+             - SETUID
+             - SETGID
         resources:
          limits:
           memory: "100Mi"
@@ -102,9 +106,16 @@ spec:
             value: /certs/tls.pem
           - name: SERVER_KEY
             value: /certs/tls-key.pem
+          - name: ADD_NGINX_SERVER_CFG
+            value: 'gzip off; location = /reload { allow 127.0.0.1; deny all; content_by_lua_block { os.execute("/usr/local/openresty/nginx/sbin/nginx -s reload;") } }'
+          - name: BASIC_AUTH
+            value: /etc/nginx/service-secrets/.htpasswd_1
         volumeMounts:
           - name: certs
             mountPath: /certs
+            readOnly: true
+          - name: service-secrets
+            mountPath: /etc/nginx/service-secrets
             readOnly: true
         ports:
           - name: https
@@ -177,3 +188,6 @@ spec:
         - name: bundle
           configMap:
             name: bundle
+        - name: service-secrets
+          secret:
+            secretName: pttg-fs-service-secrets
