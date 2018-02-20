@@ -65,7 +65,7 @@ spec:
         args: ["-c", "keytool -import -alias servercert -file /etc/ssl/certs/ca-bundle.crt -keystore /store/truststore.jks -noprompt -storepass changeit"]
       containers:
       - name: certs
-        image: quay.io/ukhomeofficedigital/pttg-cfssl-sidekick:build-3
+        image: quay.io/ukhomeofficedigital/pttg-cfssl-sidekick:build-5
         securityContext:
           runAsNonRoot: true
           capabilities:
