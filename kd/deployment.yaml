@@ -6,7 +6,7 @@ metadata:
   labels:
     version: {{.VERSION}}
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       name: pttg-fs-service
@@ -65,7 +65,7 @@ spec:
         args: ["-c", "keytool -import -alias servercert -file /etc/ssl/certs/ca-bundle.crt -keystore /store/truststore.jks -noprompt -storepass changeit"]
       containers:
       - name: certs
-        image: quay.io/ukhomeofficedigital/cfssl-sidekick:v0.0.2
+        image: quay.io/ukhomeofficedigital/pttg-cfssl-sidekick:build-3
         securityContext:
           runAsNonRoot: true
           capabilities:
@@ -76,7 +76,7 @@ spec:
           - --certs=/certs
           - --domain=pttg-fs-service.${KUBE_NAMESPACE}.svc.cluster.local
           - --expiry=1m
-          - --command=echo "command to exec is /usr/bin/curl -k https://localhost:10443/reload"
+          - --command=scripts/trigger_nginx_reload.sh
         env:
           - name: KUBE_NAMESPACE
             valueFrom:
