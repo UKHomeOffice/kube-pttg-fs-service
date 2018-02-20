@@ -65,7 +65,7 @@ spec:
         args: ["-c", "keytool -import -alias servercert -file /etc/ssl/certs/ca-bundle.crt -keystore /store/truststore.jks -noprompt -storepass changeit"]
       containers:
       - name: certs
-        image: quay.io/ukhomeofficedigital/pttg-cfssl-sidekick:build-5
+        image: quay.io/ukhomeofficedigital/pttg-cfssl-sidekick:build-6
         securityContext:
           runAsNonRoot: true
           capabilities:
@@ -75,7 +75,7 @@ spec:
         args:
           - --certs=/certs
           - --domain=pttg-fs-service.${KUBE_NAMESPACE}.svc.cluster.local
-          - --expiry=1m
+          - --expiry=1h
           - --command=/usr/local/scripts/trigger_nginx_reload.sh
         env:
           - name: KUBE_NAMESPACE
@@ -120,7 +120,7 @@ spec:
           - name: SERVER_KEY
             value: /certs/tls-key.pem
           - name: ADD_NGINX_SERVER_CFG
-            value: 'gzip off; location = /reload { allow 127.0.0.1; deny all; content_by_lua_block { os.execute("touch /tmp/tim-before; /usr/local/openresty/nginx/sbin/nginx -s reload; touch /tmp/tim-after;") } }'
+            value: 'gzip off; location = /reload { allow 127.0.0.1; deny all; content_by_lua_block { os.execute("touch /tmp/nginx-reload-triggered; /usr/local/openresty/nginx/sbin/nginx -s reload; touch /tmp/nginx-reload-complete;") } }'
           - name: BASIC_AUTH
             value: /etc/nginx/service-secrets/.htpasswd_1
         volumeMounts:
