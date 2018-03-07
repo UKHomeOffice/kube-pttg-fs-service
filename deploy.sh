@@ -1,5 +1,11 @@
 #!/bin/bash
 
+echo "KUBE_NAMESPACE=${KUBE_NAMESPACE}"
+echo "ENVIRONMENT=${ENVIRONMENT}"
+echo "VERSION=${VERSION}"
+echo "IMAGE_VERSION=${IMAGE_VERSION}"
+echo "KUBE_SERVER=${KUBE_SERVER}"
+
 export KUBE_NAMESPACE=${KUBE_NAMESPACE}
 export KUBE_SERVER=${KUBE_SERVER}
 
@@ -24,7 +30,6 @@ fi
 #if [[ -z ${VERSION} ]] ; then
     echo "VERSION to deploy is $VERSION"
     echo "IMAGE_VERSION to deploy is $IMAGE_VERSION"
-    echo "TIM is $TIM"
 #    exit -1
 #fi
 
