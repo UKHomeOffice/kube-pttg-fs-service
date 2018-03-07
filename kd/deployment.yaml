@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: pttg-fs-service
   labels:
-    version: build-94
+    version: {{.VERSION}}
 spec:
   replicas: 2
   selector:
@@ -19,7 +19,7 @@ spec:
     metadata:
       labels:
         name: pttg-fs-service
-        version: build-94
+        version: {{.VERSION}}
     spec:
       imagePullSecrets:
         - name: registrykey
@@ -129,7 +129,7 @@ spec:
             - name: https
               containerPort: 10443
         - name: pttg-fs-service
-          image: quay.io/ukhomeofficedigital/pttg-fs-service:build-94
+          image: quay.io/ukhomeofficedigital/pttg-fs-service:{{.VERSION}}
           imagePullPolicy: Always
           securityContext:
             runAsNonRoot: true
