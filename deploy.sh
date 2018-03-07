@@ -23,6 +23,8 @@ fi
 
 #if [[ -z ${VERSION} ]] ; then
     echo "VERSION to deploy is $VERSION"
+    echo "IMAGE_VERSION to deploy is $IMAGE_VERSION"
+    echo "TIM is $TIM"
 #    exit -1
 #fi
 
