@@ -30,8 +30,8 @@ spec:
           runAsNonRoot: true
           capabilities:
             drop:
-             - SETUID
-             - SETGID
+              - SETUID
+              - SETGID
         args:
           - --certs=/certs
           - --domain=pttg-fs-service.${KUBE_NAMESPACE}.svc.cluster.local
@@ -53,8 +53,8 @@ spec:
           runAsNonRoot: true
           capabilities:
             drop:
-             - SETUID
-             - SETGID
+              - SETUID
+              - SETGID
         volumeMounts:
           - name: store
             mountPath: /store
@@ -70,8 +70,8 @@ spec:
           runAsNonRoot: true
           capabilities:
             drop:
-             - SETUID
-             - SETGID
+              - SETUID
+              - SETGID
         args:
           - --certs=/certs
           - --domain=pttg-fs-service.${KUBE_NAMESPACE}.svc.cluster.local
@@ -135,8 +135,8 @@ spec:
           runAsNonRoot: true
           capabilities:
             drop:
-             - SETUID
-             - SETGID
+              - SETUID
+              - SETGID
         env:
           - name: JAVA_OPTS
             value: '-Xms150m -Xmx250m -Djavax.net.ssl.trustStore=/store/truststore.jks'
