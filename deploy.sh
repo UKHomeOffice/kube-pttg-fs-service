@@ -21,6 +21,11 @@ if [[ -z ${KUBE_TOKEN} ]] ; then
     exit -1
 fi
 
+#if [[ -z ${VERSION} ]] ; then
+    echo "VERSION to deploy is $VERSION"
+#    exit -1
+#fi
+
 cd kd
 
 kd --insecure-skip-tls-verify \
