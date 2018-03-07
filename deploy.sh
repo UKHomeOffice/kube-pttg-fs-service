@@ -10,8 +10,7 @@ then
 fi
 
 cd kd
-kd --debug \
-    --insecure-skip-tls-verify \
+kd --insecure-skip-tls-verify \
     -f networkPolicy.yaml \
     -f deployment.yaml \
     -f service.yaml
