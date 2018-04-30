@@ -24,7 +24,7 @@ spec:
       imagePullSecrets:
         - name: registrykey
       initContainers:
-        - name: create-truststore
+        - name: truststore
           image: quay.io/ukhomeofficedigital/cfssl-sidekick-jks:v0.0.5
           securityContext:
             runAsNonRoot: true
@@ -34,7 +34,7 @@ spec:
                 - SETGID
           args:
             - --certs=/certs
-            - --command=/usr/bin/create-keystore.sh /certs/tls.pem /certs/tls-key.pem /etc/ssl/certs/acp-root.crt
+            - --command=/usr/bin/create-keystore.sh /etc/keystore/tls.pem /etc/keystore/tls-key.pem /etc/ssl/certs/acp-root.crt
             - --domain=pttg-fs-service.${KUBE_NAMESPACE}.svc.cluster.local
             - --domain=localhost
             - --onetime=true
@@ -44,8 +44,6 @@ spec:
               fieldRef:
                 fieldPath: metadata.namespace
           volumeMounts:
-          - name: certs
-            mountPath: /certs
           - name: keystore
             mountPath: /etc/keystore
           - name: bundle
@@ -53,7 +51,7 @@ spec:
             readOnly: true
       containers:
         - name: certs
-          image: quay.io/ukhomeofficedigital/pttg-cfssl-sidekick:build-7
+          image: quay.io/ukhomeofficedigital/cfssl-sidekick:v0.0.5
           securityContext:
             runAsNonRoot: true
             capabilities:
@@ -127,7 +125,7 @@ spec:
                 - SETGID
           env:
             - name: JAVA_OPTS
-              value: '-Xms150m -Xmx250m -Djavax.net.ssl.trustStore=/etc/keystore/truststore.jks'
+              value: '-Xms150m -Xmx250m -Djavax.net.ssl.trustStore=/etc/keystore/truststore.jks -Djavax.net.ssl.keyStore=/etc/keystore/keystore.jks'
             - name: SERVER_PORT
               value: '8080'
             - name: BARCLAYS_SERVICE_URL
