@@ -44,6 +44,8 @@ spec:
               fieldRef:
                 fieldPath: metadata.namespace
           volumeMounts:
+          - name: certs
+            mountPath: /certs
           - name: keystore
             mountPath: /etc/keystore
           - name: bundle
