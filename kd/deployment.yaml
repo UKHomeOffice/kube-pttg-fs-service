@@ -52,7 +52,7 @@ spec:
             mountPath: /etc/ssl/certs
             readOnly: true
       containers:
-        - name: certs_and_keys
+        - name: certs-and-keys
           image: quay.io/ukhomeofficedigital/cfssl-sidekick:v0.0.5
           securityContext:
             runAsNonRoot: true
